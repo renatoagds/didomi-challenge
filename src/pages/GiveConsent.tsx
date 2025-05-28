@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
@@ -7,7 +8,61 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import { Box } from "@mui/material";
 
+const useConsentForm = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState({
+    value: "",
+    valid: false,
+  });
+  const [consent, setConsent] = useState({
+    newsletter: false,
+    ads: false,
+    contribute: false,
+  });
+
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+    setConsent((prev) => ({ ...prev, [name]: checked }));
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
+  };
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail({
+      value: event.target.value,
+      valid: event.target.checkValidity(),
+    });
+  };
+
+  const valid =
+    (consent.newsletter || consent.ads || consent.contribute) &&
+    name &&
+    email.valid;
+
+  return {
+    handleCheckboxChange,
+    handleNameChange,
+    handleEmailChange,
+    name,
+    email,
+    consent,
+    valid,
+  };
+};
+
 export default function GiveConsent() {
+  const {
+    handleCheckboxChange,
+    handleNameChange,
+    handleEmailChange,
+    name,
+    email,
+    consent,
+    valid,
+  } = useConsentForm();
+
   return (
     <Box
       sx={{
@@ -19,8 +74,6 @@ export default function GiveConsent() {
       }}
     >
       <Box
-        component={"form"}
-        autoComplete="off"
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -29,13 +82,22 @@ export default function GiveConsent() {
         }}
       >
         <FormGroup row sx={{ gap: 2 }}>
-          <TextField id="name" label="Name" required variant="outlined" />
           <TextField
+            value={name}
+            id="name"
+            label="Name"
+            required
+            variant="outlined"
+            onChange={handleNameChange}
+          />
+          <TextField
+            value={email.value}
             id="email"
             label="Email"
             required
             variant="outlined"
             type="email"
+            onChange={handleEmailChange}
           />
         </FormGroup>
         <FormControl component="fieldset" variant="standard" required>
@@ -51,23 +113,42 @@ export default function GiveConsent() {
           </FormLabel>
           <FormGroup sx={{ border: "1px solid #ccc", padding: 2 }}>
             <FormControlLabel
-              control={<Checkbox name="newsletter" />}
+              control={
+                <Checkbox
+                  name="newsletter"
+                  onChange={handleCheckboxChange}
+                  checked={consent.newsletter}
+                />
+              }
               label="Receive newsletter"
             />
             <FormControlLabel
-              control={<Checkbox name="ads" />}
+              control={
+                <Checkbox
+                  name="ads"
+                  onChange={handleCheckboxChange}
+                  checked={consent.ads}
+                />
+              }
               label="Be shown targeted ads"
             />
             <FormControlLabel
-              control={<Checkbox name="contribute" />}
+              control={
+                <Checkbox
+                  name="contribute"
+                  onChange={handleCheckboxChange}
+                  checked={consent.contribute}
+                />
+              }
               label="Contribute to anonymous visit statistics"
             />
           </FormGroup>
         </FormControl>
         <Button
           variant="contained"
-          type="submit"
+          type="button"
           sx={{ width: "fit-content", alignSelf: "center" }}
+          disabled={!valid}
         >
           Give Consent
         </Button>
