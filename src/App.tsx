@@ -6,11 +6,11 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import { Link, Navigate, Route, Routes } from "react-router";
 
 /* Pages */
-import GiveConsent from "./pages/GiveConsent";
-import CollectedConsents from "./pages/CollectedConsents";
-import { Link, Navigate, Route, Routes } from "react-router";
+import GiveConsent from "./pages/give-consent/GiveConsent";
+import CollectedConsents from "./pages/collected-consents/CollectedConsents";
 
 const DRAWER_WIDTH = 240;
 
