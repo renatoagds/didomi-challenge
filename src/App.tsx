@@ -12,7 +12,7 @@ import GiveConsent from "./pages/GiveConsent";
 import CollectedConsents from "./pages/CollectedConsents";
 import { Link, Navigate, Route, Routes } from "react-router";
 
-const drawerWidth = 240;
+const DRAWER_WIDTH = 240;
 
 function App() {
   return (
@@ -21,10 +21,10 @@ function App() {
       <Box sx={{ display: "flex" }}>
         <Drawer
           sx={{
-            width: drawerWidth,
+            width: DRAWER_WIDTH,
             flexShrink: 0,
             "& .MuiDrawer-paper": {
-              width: drawerWidth,
+              width: DRAWER_WIDTH,
               boxSizing: "border-box",
             },
           }}
