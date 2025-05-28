@@ -45,7 +45,7 @@ function App() {
             </ListItem>
           </List>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, height: "100vh" }}>
           <Routes>
             <Route index path="/" element={<Navigate to="/give-consent" />} />
             <Route path="/give-consent" element={<GiveConsent />} />
