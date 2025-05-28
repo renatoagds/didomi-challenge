@@ -1,24 +1,54 @@
-# Hiring process at Didomi
+# React + TypeScript + Vite
 
-For engineering positions at Didomi, our hiring process is made of 4 steps:
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-- Introductory call with a Tech Lead or the CTO
-- A code challenge to build a simple project (API, SPA, etc.). This is used as the basis of discussion for the next step. You can find all our challenges on this repository. We also accept suitable open-source or personal projects in place of the challenge.
-- A ˜1h code review and architecture session with 3-4 Didomi engineers
-- A set of 1:1 30-minute calls with the CTO, engineers, and (occasionally) a product manager
+Currently, two official plugins are available:
 
-The whole process should not take more than 2 weeks start to end. After the challenge has been sent by the candidate, scheduling and interviewing should be done within 1 week.
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Challenges
+## Expanding the ESLint configuration
 
-We use the following challenges for our review sessions:
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-- [Backend engineering](./backend/README.md)
-- [Data engineering](./data/README.md)
-- [Devops](./devops/README.md)
-- [Frontend engineering](./frontend/README.md)
-- [Mobile engineering](./mobile/README.md)
-- [QA engineering](./qa/README.md)
-- [Webx engineering](./webx/README.md)
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-Candidates for a full-stack position can do either the [Backend engineering](./backend/README.md) or the [Frontend engineering](./frontend/README.md) challenge.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
