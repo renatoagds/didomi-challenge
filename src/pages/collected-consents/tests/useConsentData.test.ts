@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import { renderHook } from "@testing-library/react";
 import useConsentData, { PAGE_SIZE } from "../useConsentData";
-import "../../../mock/mock";
 import { mockedData } from "../../../mock/data";
 import type { ChangeEvent } from "react";
 
