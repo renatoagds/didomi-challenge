@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { ConsentData } from "../../utils/types";
 
-const PAGE_SIZE = 2;
+export const PAGE_SIZE = 2;
 
 const getConsentsForPage = (consents: Array<ConsentData>, page: number) => {
   const startIndex = (page - 1) * PAGE_SIZE;
