@@ -53,10 +53,18 @@ export default function useConsentForm(): {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(() => {
-      setSubmitting(false);
-      navigate("/collected-consents");
-    });
+    })
+      .then(() => {
+        setSubmitting(false);
+        navigate("/collected-consents");
+      })
+      .catch((error) => {
+        setSubmitting(false);
+        console.error("Error submitting consent:", error);
+        alert(
+          "An error occurred while submitting your consent. Please try again."
+        );
+      });
   };
 
   const valid =
