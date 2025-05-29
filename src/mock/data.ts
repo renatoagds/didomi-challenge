@@ -1,6 +1,6 @@
 import type { ConsentData } from "../utils/types";
 
-const data: Array<ConsentData> = [
+export const mockedData: Array<ConsentData> = [
   {
     id: "1",
     name: "John Doe",
@@ -54,12 +54,12 @@ const data: Array<ConsentData> = [
 ];
 
 export function getData(): Array<ConsentData> {
-  return data;
+  return mockedData;
 }
 
 export function addData(newEntry: Omit<ConsentData, "id">): Array<ConsentData> {
-  const newId = (data.length + 1).toString();
+  const newId = (mockedData.length + 1).toString();
   const entryWithId = { ...newEntry, id: newId };
-  data.push(entryWithId);
-  return data;
+  mockedData.push(entryWithId);
+  return mockedData;
 }
