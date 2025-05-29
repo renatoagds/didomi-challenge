@@ -12,6 +12,7 @@ export default function useConsentData() {
   const [data, setData] = useState<Array<ConsentData>>([]);
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchConsents = useCallback(async () => {
     try {
@@ -19,8 +20,10 @@ export default function useConsentData() {
       const data = await response.json();
       setData(data.data || []);
       setTotalPages(Math.ceil(data.data.length / PAGE_SIZE));
+      setLoading(false);
     } catch (error) {
       console.error("Failed to fetch consents:", error);
+      setLoading(false);
     }
   }, []);
 
@@ -33,6 +36,7 @@ export default function useConsentData() {
   }, [fetchConsents]);
 
   return {
+    loading,
     consents: getConsentsForPage(data, page),
     handlePageChange,
     totalPages,

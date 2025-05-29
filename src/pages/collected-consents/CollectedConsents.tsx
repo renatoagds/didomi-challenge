@@ -9,9 +9,11 @@ import mapConsentToDisplay from "./mapConsentToDisplay";
 import useConsentData from "./useConsentData";
 import Pagination from "@mui/material/Pagination";
 import Box from "@mui/material/Box";
+import { Skeleton } from "@mui/material";
 
 export default function CollectedConsents() {
-  const { consents, page, totalPages, handlePageChange } = useConsentData();
+  const { loading, consents, page, totalPages, handlePageChange } =
+    useConsentData();
 
   return (
     <Box
@@ -24,32 +26,44 @@ export default function CollectedConsents() {
         alignItems: "center",
       }}
     >
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Consent given for</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {consents.map((consent) => (
-              <TableRow
-                key={consent.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {consent.name}
-                </TableCell>
-                <TableCell>{consent.email}</TableCell>
-                <TableCell>{mapConsentToDisplay(consent.consent)}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Pagination count={totalPages} page={page} onChange={handlePageChange} />
+      {loading ? (
+        <Skeleton variant="rectangular" width="100%" height={240} />
+      ) : (
+        <>
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Consent given for</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {consents.map((consent) => (
+                  <TableRow
+                    key={consent.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {consent.name}
+                    </TableCell>
+                    <TableCell>{consent.email}</TableCell>
+                    <TableCell>
+                      {mapConsentToDisplay(consent.consent)}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Pagination
+            count={totalPages}
+            page={page}
+            onChange={handlePageChange}
+          />
+        </>
+      )}
     </Box>
   );
 }

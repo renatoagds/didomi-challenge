@@ -1,19 +1,11 @@
 import type { ConsentData } from "../utils/types";
 import { addData, getData } from "./data";
 
-window.fetch = async (
-  input: RequestInfo | URL,
-  init?: RequestInit
-): Promise<Response> => {
-  const url =
-    typeof input === "string"
-      ? input
-      : input instanceof URL
-      ? input.toString()
-      : input.url;
-
-  const method = init?.method || "GET";
-
+const handleRequest = (
+  url: string,
+  method: string,
+  init: RequestInit | undefined
+) => {
   if (url.includes("/consents") && method === "GET") {
     return new Response(JSON.stringify({ data: getData() }), {
       status: 200,
@@ -35,4 +27,24 @@ window.fetch = async (
   }
 
   return new Response(null, { status: 404 });
+};
+
+window.fetch = async (
+  input: RequestInfo | URL,
+  init?: RequestInit
+): Promise<Response> => {
+  const url =
+    typeof input === "string"
+      ? input
+      : input instanceof URL
+      ? input.toString()
+      : input.url;
+
+  const method = init?.method || "GET";
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(handleRequest(url, method, init));
+    }, 1000); // Simulate network delay
+  });
 };
