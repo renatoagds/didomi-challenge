@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import Box from "@mui/material/Box";
 import GiveConsentForm from "./GiveConsentForm";
 import useConsentForm from "./useConsentForm";
 
