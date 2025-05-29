@@ -1,4 +1,5 @@
-import { addData, getData, type ConsentData } from "./data";
+import type { ConsentData } from "../utils/types";
+import { addData, getData } from "./data";
 
 window.fetch = async (
   input: RequestInfo | URL,

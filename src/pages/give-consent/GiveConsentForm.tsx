@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import Box from "@mui/material/Box";
+import { CONSENTS } from "../../utils/labels";
 
 export default function GiveConsentForm({
   handleCheckboxChange,
@@ -72,7 +73,7 @@ export default function GiveConsentForm({
                 checked={consent.newsletter}
               />
             }
-            label="Receive newsletter"
+            label={CONSENTS.NEWSLETTER}
           />
           <FormControlLabel
             control={
@@ -82,7 +83,7 @@ export default function GiveConsentForm({
                 checked={consent.ads}
               />
             }
-            label="Be shown targeted ads"
+            label={CONSENTS.ADS}
           />
           <FormControlLabel
             control={
@@ -92,7 +93,7 @@ export default function GiveConsentForm({
                 checked={consent.contribute}
               />
             }
-            label="Contribute to anonymous visit statistics"
+            label={CONSENTS.ADS}
           />
         </FormGroup>
       </FormControl>

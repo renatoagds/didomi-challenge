@@ -1,13 +1,4 @@
-export type ConsentData = {
-  id: string;
-  name: string;
-  email: string;
-  consent: {
-    newsletter: boolean;
-    ads: boolean;
-    contribute: boolean;
-  };
-};
+import type { ConsentData } from "../utils/types";
 
 const data: Array<ConsentData> = [
   {
