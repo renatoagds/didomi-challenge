@@ -21,17 +21,6 @@ describe("useConsentData", () => {
       await vi.advanceTimersByTimeAsync(2000);
     });
 
-    await vi.waitFor(
-      () => {
-        if (result.current.loading) {
-          throw new Error("Still loading");
-        }
-      },
-      {
-        timeout: 2000,
-      }
-    );
-
     expect(result.current.loading).toBe(false);
     expect(result.current.consents).toHaveLength(PAGE_SIZE);
     expect(result.current.totalPages).toBe(3);
@@ -44,17 +33,6 @@ describe("useConsentData", () => {
     await act(async () => {
       await vi.advanceTimersByTimeAsync(2000);
     });
-
-    await vi.waitFor(
-      () => {
-        if (result.current.loading) {
-          throw new Error("Still loading");
-        }
-      },
-      {
-        timeout: 2000,
-      }
-    );
 
     act(() => {
       result.current.handlePageChange({} as ChangeEvent, 2);
