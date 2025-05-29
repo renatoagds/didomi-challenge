@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import CollectedConsentsTable from "../CollectedConsentsTable";
 import type { ChangeEvent } from "react";
 import { mockedData } from "../../../mock/data";
@@ -50,7 +50,10 @@ describe("CollectedConsentsTable", () => {
     );
 
     const next = screen.getByRole("button", { name: /3/i });
-    next.click();
+
+    act(() => {
+      next.click();
+    });
   });
 
   test("table renders properly", () => {

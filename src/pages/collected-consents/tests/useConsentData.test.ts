@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { renderHook } from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import useConsentData, { PAGE_SIZE } from "../useConsentData";
 import { mockedData } from "../../../mock/data";
 import type { ChangeEvent } from "react";
@@ -17,7 +17,9 @@ describe("useConsentData", () => {
     expect(result.current.page).toBe(1);
     expect(result.current.totalPages).toBe(1);
 
-    vi.advanceTimersByTime(2000);
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(2000);
+    });
 
     await vi.waitFor(
       () => {
@@ -38,12 +40,14 @@ describe("useConsentData", () => {
 
   test("should handle page change correctly", async () => {
     const { result } = renderHook(() => useConsentData());
-    vi.advanceTimersByTime(2000);
-    result.current.handlePageChange({} as ChangeEvent, 2);
+
+    await act(async () => {
+      await vi.advanceTimersByTimeAsync(2000);
+    });
 
     await vi.waitFor(
       () => {
-        if (result.current.page !== 2) {
+        if (result.current.loading) {
           throw new Error("Still loading");
         }
       },
@@ -51,6 +55,10 @@ describe("useConsentData", () => {
         timeout: 2000,
       }
     );
+
+    act(() => {
+      result.current.handlePageChange({} as ChangeEvent, 2);
+    });
 
     expect(result.current.page).toBe(2);
     expect(result.current.consents[0].id).toBe(mockedData[2].id);
