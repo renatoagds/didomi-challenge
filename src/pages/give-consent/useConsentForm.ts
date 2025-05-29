@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 export default function useConsentForm(): {
+  submitting: boolean;
+  handleSubmit: () => void;
   handleCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleNameChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleEmailChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -9,6 +12,8 @@ export default function useConsentForm(): {
   consent: { newsletter: boolean; ads: boolean; contribute: boolean };
   valid: boolean;
 } {
+  const navigate = useNavigate();
+  const [submitting, setSubmitting] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState({
     value: "",
@@ -36,12 +41,32 @@ export default function useConsentForm(): {
     });
   };
 
+  const handleSubmit = () => {
+    setSubmitting(true);
+    fetch("/consents", {
+      method: "POST",
+      body: JSON.stringify({
+        name,
+        email: email.value,
+        consent,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
+      setSubmitting(false);
+      navigate("/collected-consents");
+    });
+  };
+
   const valid =
     (consent.newsletter || consent.ads || consent.contribute) &&
     Boolean(name) &&
     email.valid;
 
   return {
+    submitting,
+    handleSubmit,
     handleCheckboxChange,
     handleNameChange,
     handleEmailChange,

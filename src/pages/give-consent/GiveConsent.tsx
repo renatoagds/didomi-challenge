@@ -4,9 +4,11 @@ import useConsentForm from "./useConsentForm";
 
 export default function GiveConsent() {
   const {
+    handleSubmit,
     handleCheckboxChange,
     handleNameChange,
     handleEmailChange,
+    submitting,
     name,
     email,
     consent,
@@ -24,9 +26,11 @@ export default function GiveConsent() {
       }}
     >
       <GiveConsentForm
+        handleSubmit={handleSubmit}
         handleCheckboxChange={handleCheckboxChange}
         handleNameChange={handleNameChange}
         handleEmailChange={handleEmailChange}
+        submitting={submitting}
         name={name}
         email={email}
         consent={consent}
