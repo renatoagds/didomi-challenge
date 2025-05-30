@@ -1,6 +1,6 @@
 # Didomi Challenge
 
-This project is a front-end application built with React, developed as part of a technical challenge. It utilizes TypeScript, React and MUI Library and is using Vite as bundler.
+This project is a front-end application built with React, developed for Didomi technical challenge. It utilizes TypeScript, React and MUI Library and uses Vite as bundler.
 
 ## Table of Contents
 
