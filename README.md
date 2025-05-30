@@ -23,7 +23,7 @@ npm install
 
 ## Available Scripts
 
-In the project directory, you can run the following scripts:
+In the root directory, you can run the following scripts:
 
 ### Development
 
@@ -47,7 +47,7 @@ npm run build
 
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified, and the filenames include the hashes. Your app is ready to be deployed!
+The build is minified, and the filenames include the hashes.
 
 To preview the bundle generated on `dist` folder, run:
 
