@@ -39,7 +39,7 @@ The page will reload if you make edits.
 
 ### Build
 
-Builds the app for production to the `build` folder:
+Builds the app for production to the `dist` folder:
 
 ```bash
 npm run build
@@ -48,6 +48,14 @@ npm run build
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified, and the filenames include the hashes. Your app is ready to be deployed!
+
+To preview the bundle generated on `dist` folder, run:
+
+```bash
+npm run preview
+```
+
+It will start a server on [http://localhost:4173/](http://localhost:4173/).
 
 ### Test
 
