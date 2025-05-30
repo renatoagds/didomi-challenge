@@ -182,6 +182,7 @@ describe("useConsentForm", () => {
       await vi.advanceTimersByTimeAsync(2000);
     });
 
+    expect(result.current.submitting).toBe(false);
     expect(window.fetch).toHaveBeenCalledWith("/consents", {
       method: "POST",
       body: JSON.stringify({
@@ -197,7 +198,6 @@ describe("useConsentForm", () => {
         "Content-Type": "application/json",
       },
     });
-    expect(result.current.submitting).toBe(false);
     expect(navigate).toHaveBeenCalledWith("/collected-consents");
   });
 });
